@@ -1,2 +1,3 @@
-<label>{{ label }}</label>
-<button (click)="toggleTheme()">Toggle Theme</button>
+<label>{{ totalPrice() }}</label>
+<br>
+<input type="number" [value]="quantity()" (input)="changeQuantity($event)" />

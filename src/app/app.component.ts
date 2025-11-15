@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { signal, effect } from '@angular/core';
+import { signal, computed } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,21 +12,12 @@ import { signal, effect } from '@angular/core';
 export class AppComponent {
   
   title = 'angular-signals';
-  theme = signal<'light' | 'dark'>('light');
-  label = this.theme();
+  price = 19;
+  quantity = signal(10);
+  totalPrice = computed(() => this.price * this.quantity());
 
-  constructor() {
-    effect(() => {
-      this.label = this.theme();
-    });
+  changeQuantity(event: Event) {
+    this.quantity.set((event.target as HTMLInputElement).valueAsNumber);
   }
 
-  toggleTheme() {
-    this.theme.update((currentTheme) => 
-      currentTheme === 'light' ? 'dark' : 'light'
-    );
-  }
-
-  // change body html class name
-  // document.body.className = this.theme();
 }
